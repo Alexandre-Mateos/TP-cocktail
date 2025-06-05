@@ -10,12 +10,17 @@
       href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
       <link rel="stylesheet" href="assets/styles/mon-style.css">
   </head>
-  <body class="container-fluid">
+  <body class="container">
     <h1 class="text-center">Bar à cocktails</h1>
-    <form id="formulaire" class="text-center container">
-      <input type="text" placeholder="votre alcool" id="recherche-cocktails" />
-      <button type="submit" class="btn btn-primary">Rechercher</button>
-      <button id="aleatoire" class="btn btn-warning">Aleatoire</button>
+    <form id="formulaire" class="d-flex gap-2 py-3">
+        <div class="w-100">
+            <input type="text" placeholder="votre alcool" id="recherche-cocktails" class="w-100 p-2 rounded-3"/>
+        </div>
+      <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-primary">Rechercher</button>
+          <button id="aleatoire" class="btn btn-warning">Aleatoire</button>
+          <button id="effacer" class="btn btn-danger">x</button>
+      </div>
     </form>
       <div  class="container-fluid">
         <div class="row" id="affichage-cocktails">
