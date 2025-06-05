@@ -4,10 +4,17 @@ let myCocktails = document.querySelector("#affichage-cocktails");
 let randomButton = document.querySelector("#aleatoire");
 let deleteButton = document.querySelector("#effacer");
 
-// creation d'un tableau pour stocker les cocktail favori sous forme d'objet
-const collection = [];
-let cocktailCollection = JSON.stringify(collection);
-localStorage.setItem("myFavCocktails", cocktailCollection);
+// vérifie si mon local storage possède déjà un tableau pour ne pas l'écrase au rechargement de la page.
+// s'il n'éxise pas : le créer
+if (!localStorage.getItem("myFavCocktails")) {
+  // je créer un tableau vide
+  const collection = [];
+  // j'encode mon tableau avec JSON
+  let cocktailCollection = JSON.stringify(collection);
+  // je stock mon tableau encodé
+  localStorage.setItem("myFavCocktails", cocktailCollection);
+}
+
 
 
 
@@ -81,7 +88,8 @@ function displayCocktails(drinks) {
 
     // j'ajoute un évenement sur l'image
     img.addEventListener("click", () => {
-        isFavCocktail(drinks[i]);
+       let newFavCocktail = isFavCocktail(drinks[i]);
+        saveFavCocktail(newFavCocktail);
     })
 
     card.insertAdjacentElement("beforeend", img);
