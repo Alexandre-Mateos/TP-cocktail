@@ -2,6 +2,7 @@ let form = document.querySelector("#formulaire");
 let searchCocktails = document.querySelector("#recherche-cocktails");
 let myCocktails = document.querySelector("#affichage-cocktails");
 let randomButton = document.querySelector("#aleatoire");
+let deleteButton = document.querySelector("#effacer");
 
 form.addEventListener("submit", (e) => {
     
@@ -22,6 +23,10 @@ randomButton.addEventListener("click", (e) => {
     fetchRandomCocktails (userRandomRequest);
 })
 
+deleteButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    myCocktails.innerHTML = "";
+})
 
 function fetchCocktails(query){
     fetch(query).then((response) => {
@@ -46,11 +51,11 @@ function displayCocktails(drinks){
     for (let i = 0 ; i < drinks.length ; i++){
         
         let column = document.createElement("div");
-        column.classList.add("col-3");
+        column.classList.add("col-4");
         
         // creation de la carte
         let card = document.createElement("div");
-        card.classList.add("card", "card-container", "container-carte");
+        card.classList.add("card", "card-container", "h-100");
         
 
         // on récupère les image des cocktails à afficher dans la carte et on les attaches à card
@@ -116,3 +121,4 @@ function displayCocktails(drinks){
 
 
 }
+
