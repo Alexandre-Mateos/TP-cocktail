@@ -1,6 +1,7 @@
 let form = document.querySelector("#formulaire");
 let searchCocktails = document.querySelector("#recherche-cocktails");
 let myCocktails = document.querySelector("#affichage-cocktails");
+let favoriteCocktail = document.querySelector("#cocktails-favoris");
 let randomButton = document.querySelector("#aleatoire");
 let deleteButton = document.querySelector("#effacer");
 
@@ -90,6 +91,8 @@ function displayCocktails(drinks) {
     img.addEventListener("click", () => {
        let newFavCocktail = isFavCocktail(drinks[i]);
         saveFavCocktail(newFavCocktail);
+
+
     })
 
     card.insertAdjacentElement("beforeend", img);
@@ -170,4 +173,8 @@ function saveFavCocktail(newFavCocktail){
     decodedCocktails = JSON.stringify(decodedCocktails);
     // je stock mon tableau dans localStorage
     localStorage.setItem("myFavCocktails", decodedCocktails);
+}
+
+function displayFavCocktail(){
+  
 }
