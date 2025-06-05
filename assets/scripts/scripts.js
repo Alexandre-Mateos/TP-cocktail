@@ -17,17 +17,22 @@ function displayCocktails(drinks){
         
         // creation de la carte
         let card = document.createElement("div");
+        card.classList.add("card", "card-container");
+        
 
         // on récupère les image des cocktails à afficher dans la carte et on les attaches à card
         let img = document.createElement("img");
+        img.classList.add("card-img-top");
         img.src = drinks[i].strDrinkThumb;
         card.insertAdjacentElement("beforeend", img);
         
         // on crée le corps de la carte
         let cardBody = document.createElement("div");
+        cardBody.classList.add("card-body");
 
         // on crée l'élément qui accueil le nom du cocktail et on l'attache à cardBody
         let paraTitleCocktail = document.createElement("h2");
+        paraTitleCocktail.classList.add("card-title");
         paraTitleCocktail.innerHTML = drinks[i].strDrink;
         cardBody.insertAdjacentElement("beforeend", paraTitleCocktail);
 
@@ -36,6 +41,7 @@ function displayCocktails(drinks){
 
         // on crée l'élément qui accueil les instructions et on l'attache à cardBody
         let paraInstruCocktail = document.createElement("p");
+        paraInstruCocktail.classList.add("card-text");
         paraInstruCocktail.innerHTML = drinks[i].strInstructionsFR;
         cardBody.insertAdjacentElement("beforeend", paraInstruCocktail);
 
