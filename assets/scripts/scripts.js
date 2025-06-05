@@ -37,9 +37,10 @@ function fetchCocktails(query) {
     .then((data) => {
         if(!data.drinks){
             falseRequets();
+        }else{
+            console.log(data);
+            displayCocktails(data.drinks);
         }
-      console.log(data);
-      displayCocktails(data.drinks);
     });
 }
 
@@ -56,6 +57,8 @@ function fetchRandomCocktails(query) {
 
 function displayCocktails(drinks) {
   for (let i = 0; i < drinks.length; i++) {
+
+
     let column = document.createElement("div");
     column.classList.add("col-lg-4", "col-md-6");
 
@@ -67,6 +70,10 @@ function displayCocktails(drinks) {
     let img = document.createElement("img");
     img.classList.add("card-img-top");
     img.src = drinks[i].strDrinkThumb;
+
+    // j'ajoute un évenement sur l'image
+
+
     card.insertAdjacentElement("beforeend", img);
 
     // on crée le corps de la carte
@@ -120,4 +127,11 @@ function falseRequets(){
     errorMessage.classList.add("text-center", "fs-4");
     errorMessage.innerHTML=`Désolé nous n'avons pas trouvé de cocktails correspondant à votre recherche. Retentez votre chance avec un autre alcool !`
     myCocktails.insertAdjacentElement("beforeend", errorMessage);
+}
+
+function favCocktail(drinks){
+    let favCocktail = {
+        name : drinks.strDrink,
+    }
+    return favCocktail
 }
