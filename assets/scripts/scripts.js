@@ -4,6 +4,14 @@ let myCocktails = document.querySelector("#affichage-cocktails");
 let randomButton = document.querySelector("#aleatoire");
 let deleteButton = document.querySelector("#effacer");
 
+// creation d'un tableau pour stocker les cocktail favori sous forme d'objet
+const collection = [];
+let cocktailCollection = JSON.stringify(collection);
+localStorage.setItem("myFavCocktails", cocktailCollection);
+
+
+
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -72,7 +80,9 @@ function displayCocktails(drinks) {
     img.src = drinks[i].strDrinkThumb;
 
     // j'ajoute un évenement sur l'image
-
+    img.addEventListener("click", () => {
+        isFavCocktail(drinks[i]);
+    })
 
     card.insertAdjacentElement("beforeend", img);
 
@@ -129,9 +139,27 @@ function falseRequets(){
     myCocktails.insertAdjacentElement("beforeend", errorMessage);
 }
 
-function favCocktail(drinks){
+
+// j'affiche dans la console les infos de la carte
+function isFavCocktail(drinks){
     let favCocktail = {
         name : drinks.strDrink,
+        instructions : drinks.strInstructionsFR,
     }
+    console.log(favCocktail);
     return favCocktail
+}
+
+// je récupère mon tableau de stockage pour ajouter de nouveaux cocktails dedans
+function saveFavCocktail(newFavCocktail){
+    // je récupère mon tableau
+    let encodedCocktails = localStorage.getItem("myFavCocktails");
+    // je décode mon tableau
+    let decodedCocktails = JSON.parse(encodedCocktails);
+    // je stocke ma carte dans le tableau
+    decodedCocktails.push(newFavCocktail);
+    // je réencode mon tableau
+    decodedCocktails = JSON.stringify(decodedCocktails);
+    // je stock mon tableau dans localStorage
+    localStorage.setItem("myFavCocktails", decodedCocktails);
 }
