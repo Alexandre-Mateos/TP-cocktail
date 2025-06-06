@@ -87,6 +87,7 @@ function displayCocktails(drinks) {
     img.addEventListener("click", () => {
       let newFavCocktail = isFavCocktail(drinks[i]);
       saveFavCocktail(newFavCocktail);
+      displayFavCocktail();
     });
 
     card.insertAdjacentElement("beforeend", img);
@@ -149,6 +150,7 @@ function isFavCocktail(drinks) {
   let favCocktail = {
     name: drinks.strDrink,
     instructions: drinks.strInstructionsFR,
+    img: drinks.strDrinkThumb,
   };
   console.log(favCocktail);
   return favCocktail;
@@ -169,6 +171,9 @@ function saveFavCocktail(newFavCocktail) {
 }
 
 function displayFavCocktail() {
+
+  favoriteCocktail.innerHTML = "";
+
   // je récupère mon tableau
   let encodedFavCocktails = localStorage.getItem("myFavCocktails");
   let decodedFavCocktails = JSON.parse(encodedFavCocktails);
@@ -182,9 +187,16 @@ function displayFavCocktail() {
     let cardFavCocktail = document.createElement("div");
     cardFavCocktail.classList.add("card", "card-container", "h-100");
 
+    // on récupère les image des cocktails dans le local storage et on les attaches à card
+    let imgFavCocktail = document.createElement("img");
+    imgFavCocktail.classList.add("card-img-top");
+    imgFavCocktail.src = decodedFavCocktails[i].img;
+    cardFavCocktail.insertAdjacentElement("beforeend", imgFavCocktail);
+
     // on crée le corps de la carte
     let cardBodyFavCocktail = document.createElement("div");
     cardBodyFavCocktail.classList.add("card-body");
+
 
     // on crée l'élément qui accueil le nom du cocktail et on l'attache à cardBody
     let paraTitleFavCocktail = document.createElement("h2");
