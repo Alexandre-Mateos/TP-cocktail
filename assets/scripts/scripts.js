@@ -16,10 +16,6 @@ if (!localStorage.getItem("myFavCocktails")) {
   localStorage.setItem("myFavCocktails", cocktailCollection);
 }
 
-
-
-
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -51,12 +47,12 @@ function fetchCocktails(query) {
       return response.json();
     })
     .then((data) => {
-        if(!data.drinks){
-            falseRequets();
-        }else{
-            console.log(data);
-            displayCocktails(data.drinks);
-        }
+      if (!data.drinks) {
+        falseRequets();
+      } else {
+        console.log(data);
+        displayCocktails(data.drinks);
+      }
     });
 }
 
@@ -73,8 +69,6 @@ function fetchRandomCocktails(query) {
 
 function displayCocktails(drinks) {
   for (let i = 0; i < drinks.length; i++) {
-
-
     let column = document.createElement("div");
     column.classList.add("col-lg-4", "col-md-6");
 
@@ -89,11 +83,9 @@ function displayCocktails(drinks) {
 
     // j'ajoute un évenement sur l'image
     img.addEventListener("click", () => {
-       let newFavCocktail = isFavCocktail(drinks[i]);
-        saveFavCocktail(newFavCocktail);
-
-
-    })
+      let newFavCocktail = isFavCocktail(drinks[i]);
+      saveFavCocktail(newFavCocktail);
+    });
 
     card.insertAdjacentElement("beforeend", img);
 
@@ -142,39 +134,48 @@ function displayCocktails(drinks) {
   }
 }
 
-function falseRequets(){
-    console.log("rien trouvé");
-    let errorMessage = document.createElement("p");
-    errorMessage.classList.add("text-center", "fs-4");
-    errorMessage.innerHTML=`Désolé nous n'avons pas trouvé de cocktails correspondant à votre recherche. Retentez votre chance avec un autre alcool !`
-    myCocktails.insertAdjacentElement("beforeend", errorMessage);
+function falseRequets() {
+  console.log("rien trouvé");
+  let errorMessage = document.createElement("p");
+  errorMessage.classList.add("text-center", "fs-4");
+  errorMessage.innerHTML = `Désolé nous n'avons pas trouvé de cocktails correspondant à votre recherche. Retentez votre chance avec un autre alcool !`;
+  myCocktails.insertAdjacentElement("beforeend", errorMessage);
 }
 
-
-// j'affiche dans la console les infos de la carte
-function isFavCocktail(drinks){
-    let favCocktail = {
-        name : drinks.strDrink,
-        instructions : drinks.strInstructionsFR,
-    }
-    console.log(favCocktail);
-    return favCocktail
+// j'affiche dans la console les infos de la carte et je crée l'objet correspondant pour le stocker plus tard
+function isFavCocktail(drinks) {
+  let favCocktail = {
+    name: drinks.strDrink,
+    instructions: drinks.strInstructionsFR,
+  };
+  console.log(favCocktail);
+  return favCocktail;
 }
 
 // je récupère mon tableau de stockage pour ajouter de nouveaux cocktails dedans
-function saveFavCocktail(newFavCocktail){
-    // je récupère mon tableau
-    let encodedCocktails = localStorage.getItem("myFavCocktails");
-    // je décode mon tableau
-    let decodedCocktails = JSON.parse(encodedCocktails);
-    // je stocke ma carte dans le tableau
-    decodedCocktails.push(newFavCocktail);
-    // je réencode mon tableau
-    decodedCocktails = JSON.stringify(decodedCocktails);
-    // je stock mon tableau dans localStorage
-    localStorage.setItem("myFavCocktails", decodedCocktails);
+function saveFavCocktail(newFavCocktail) {
+  // je récupère mon tableau
+  let encodedCocktails = localStorage.getItem("myFavCocktails");
+  // je décode mon tableau
+  let decodedCocktails = JSON.parse(encodedCocktails);
+  // je stocke ma carte dans le tableau
+  decodedCocktails.push(newFavCocktail);
+  // je réencode mon tableau
+  decodedCocktails = JSON.stringify(decodedCocktails);
+  // je stock mon tableau dans localStorage
+  localStorage.setItem("myFavCocktails", decodedCocktails);
 }
 
-function displayFavCocktail(){
+function displayFavCocktail() {
   
+  // je récupère mon tab
+
+  // creation des colonnes qui vont accueillir les cartes
+  let column = document.createElement("div");
+  column.classList.add("col-lg-4", "col-md-6");
+
+  // creation de la carte
+  let card = document.createElement("div");
+  card.classList.add("card", "card-container", "h-100");
+
 }
