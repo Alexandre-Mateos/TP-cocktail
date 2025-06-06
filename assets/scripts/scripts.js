@@ -16,15 +16,17 @@ if (!localStorage.getItem("myFavCocktails")) {
   localStorage.setItem("myFavCocktails", cocktailCollection);
 }
 
+displayFavCocktail();
+
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
   myCocktails.innerHTML = "";
 
   let userRequest =
     "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" +
     searchCocktails.value;
   fetchCocktails(userRequest);
+  displayFavCocktail();
 });
 
 randomButton.addEventListener("click", (e) => {
@@ -152,7 +154,7 @@ function isFavCocktail(drinks) {
   return favCocktail;
 }
 
-// je récupère mon tableau de stockage pour ajouter de nouveaux cocktails dedans
+// je récupère mon tableau de stockage pour ajouter de nouveaux cocktails
 function saveFavCocktail(newFavCocktail) {
   // je récupère mon tableau
   let encodedCocktails = localStorage.getItem("myFavCocktails");
@@ -167,15 +169,42 @@ function saveFavCocktail(newFavCocktail) {
 }
 
 function displayFavCocktail() {
+  // je récupère mon tableau
+  let encodedFavCocktails = localStorage.getItem("myFavCocktails");
+  let decodedFavCocktails = JSON.parse(encodedFavCocktails);
+
+  for (let i = 0; i < decodedFavCocktails.length; i++) {
+    // creation des colonnes qui vont accueillir les cartes
+    let columnFavCocktail = document.createElement("div");
+    columnFavCocktail.classList.add("col-lg-4", "col-md-6");
+
+    // creation de la carte
+    let cardFavCocktail = document.createElement("div");
+    cardFavCocktail.classList.add("card", "card-container", "h-100");
+
+    // on crée le corps de la carte
+    let cardBodyFavCocktail = document.createElement("div");
+    cardBodyFavCocktail.classList.add("card-body");
+
+    // on crée l'élément qui accueil le nom du cocktail et on l'attache à cardBody
+    let paraTitleFavCocktail = document.createElement("h2");
+    paraTitleFavCocktail.classList.add("card-title");
+    paraTitleFavCocktail.innerHTML = decodedFavCocktails[i].name;
+    cardBodyFavCocktail.insertAdjacentElement("beforeend", paraTitleFavCocktail);
+
+    // on crée l'élément qui accueil les instructions et on l'attache à cardBodyFavCocktail
+    let paraInstruFavCocktail = document.createElement("p");
+    paraInstruFavCocktail.classList.add("card-text");
+    paraInstruFavCocktail.innerHTML = decodedFavCocktails[i].instructions;
+    cardBodyFavCocktail.insertAdjacentElement("beforeend", paraInstruFavCocktail);
   
-  // je récupère mon tab
-
-  // creation des colonnes qui vont accueillir les cartes
-  let column = document.createElement("div");
-  column.classList.add("col-lg-4", "col-md-6");
-
-  // creation de la carte
-  let card = document.createElement("div");
-  card.classList.add("card", "card-container", "h-100");
-
+    // je rattache cardBody a card
+    cardFavCocktail.insertAdjacentElement("beforeend", cardBodyFavCocktail);
+  
+    // j'attache ma card dans ma div column
+    columnFavCocktail.insertAdjacentElement("beforeend", cardFavCocktail);
+  
+    // j'attache card à ma page HTML via favoriteCocktail 
+    favoriteCocktail.insertAdjacentElement("beforeend", columnFavCocktail);
+  }
 }
